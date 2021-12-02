@@ -5,7 +5,42 @@
 <!--        insert into cndc(depatment, first_targe, first_complete,second_target int,second_complete int,third_target int,third_complete int,fourth_target int,fourth_complete int,fifth_target int,fifth_complete int)-->
 <!--        values (#{})-->
 <!--    </insert>-->
-    <select id="insertCNDC" parameterType="com.fan.bean.CNDC">
 
+    <resultMap id="CNDCMap" type="com.fan.bean.CNDC">
+        <result property="date" column="日期"/>
+        <result property="department" column="销售部门"/>
+        <result property="sum_target" column="合同月度目标"/>
+        <result property="sum_complete" column="合同月度达成"/>
+        <result property="first_target" column="合同第一周目标"/>
+        <result property="first_complete" column="合同第一周达成"/>
+        <result property="second_target" column="合同第二周目标"/>
+        <result property="second_complete" column="合同第二周达成"/>
+        <result property="third_target" column="合同第三周目标"/>
+        <result property="third_complete" column="合同第三周达成"/>
+        <result property="fourth_target" column="合同第四周目标"/>
+        <result property="fourth_complete" column="合同第四周达成"/>
+        <result property="fifth_target" column="合同第五周目标"/>
+        <result property="fifth_complete" column="合同第五周达成"/>
+    </resultMap>
+    
+    <insert id="insertCNDC" parameterType="com.fan.bean.CNDC">
+insert into ydzdmddc(日期,销售部门,合同月度目标,合同月度达成,合同第一周目标,合同第一周达成,合同第二周目标,合同第二周达成
+,合同第三周目标,合同第三周达成,合同第四周目标,合同第四周达成,合同第五周目标,合同第五周达成)
+values (#{date}, #{department},#{sum_target},#{sum_complete},#{first_target}, #{first_complete},#{second_target}, #{second_complete}
+,#{third_target}, #{third_complete},#{fourth_target}, #{fourth_complete},#{fifth_target}, #{fifth_complete})
+    </insert>
+
+    <select id="selectCNDC" resultMap="CNDCMap">
+        select 日期,销售部门,合同月度目标,合同月度达成,合同第一周目标,合同第一周达成,合同第二周目标,合同第二周达成
+,合同第三周目标,合同第三周达成,合同第四周目标,合同第四周达成,合同第五周目标,合同第五周达成 from ydzdmddc where to_char("日期",'YYYY-MM')=#{date}
     </select>
+
+    <update id="updateCNDC" parameterType="com.fan.bean.CNDC">
+        update ydzdmddc
+        set (合同月度目标,合同月度达成,合同第一周目标,合同第一周达成,合同第二周目标,合同第二周达成
+,合同第三周目标,合同第三周达成,合同第四周目标,合同第四周达成,合同第五周目标,合同第五周达成)
+        values (#{sum_target},#{sum_complete},#{first_target}, #{first_complete},#{second_target}, #{second_complete}
+,#{third_target}, #{third_complete},#{fourth_target}, #{fourth_complete},#{fifth_target}, #{fifth_complete})
+where 部门=#{department} and to_char("日期",'YYYY-MM')=#{date}
+    </update>
 </mapper>
