@@ -36,11 +36,9 @@ values (#{date}, #{department},#{sum_target},#{sum_complete},#{first_target}, #{
     </select>
 
     <update id="updateCNDC" parameterType="com.fan.bean.CNDC">
-        update ydzdmddc
-        set (合同月度目标,合同月度达成,合同第一周目标,合同第一周达成,合同第二周目标,合同第二周达成
-,合同第三周目标,合同第三周达成,合同第四周目标,合同第四周达成,合同第五周目标,合同第五周达成)
-        values (#{sum_target},#{sum_complete},#{first_target}, #{first_complete},#{second_target}, #{second_complete}
+        update ydzdmddc set (合同月度目标,合同月度达成,合同第一周目标,合同第一周达成,合同第二周目标,合同第二周达成
+,合同第三周目标,合同第三周达成,合同第四周目标,合同第四周达成,合同第五周目标,合同第五周达成) = (#{sum_target},#{sum_complete},#{first_target}, #{first_complete},#{second_target}, #{second_complete}
 ,#{third_target}, #{third_complete},#{fourth_target}, #{fourth_complete},#{fifth_target}, #{fifth_complete})
-where 部门=#{department} and to_char("日期",'YYYY-MM')=#{date}
+where 销售部门=#{department} and to_char("日期",'YYYY-MM')=#{date}
     </update>
 </mapper>

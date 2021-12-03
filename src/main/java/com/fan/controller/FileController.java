@@ -31,17 +31,15 @@ public class FileController {
     @RequestMapping("/cndc")
     public String writeCNDC(MultipartFile file, @Param("date") Date date){
         try {
-            List<CNDC> cndcs = cndcService.selectCNDCsByDate(date);
-            for (CNDC cndc : cndcs) {
-                System.out.println(cndc);
-            }
-            Boolean isHas = cndcs.size()>0 ? true : false;
+            System.out.println("===进入请求控制器");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String dateStr = dateFormat.format(date);
-            System.out.println("********************");
+            List<CNDC> cndcs = cndcService.selectCNDCsByDate(date);
+            System.out.println("===获取日期："+dateStr+"有"+cndcs.size()+"个数据");
+            Boolean isHas = cndcs.size()>0 ? true : false;
+            System.out.println("===开始读取file文件");
             ExcelReaderBuilder read = EasyExcel.read(file.getInputStream(), CNDC.class, new MyExcelListener(cndcDao,dateStr,isHas));
             read.sheet().doRead();
-            System.out.println("&&&&&&&&&&&&&");
             return "success";
         } catch (IOException e) {
             e.printStackTrace();
